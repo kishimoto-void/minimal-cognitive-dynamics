@@ -95,4 +95,8 @@ Future work:
 - Hierarchical Gate phase coupling
 - Multi-agent interaction system
 
-- python simulate_cognition.py
+  ## Cognitive Phase Space Animation
+
+![Cognitive Dynamics](image/cognitive_phase_space.gif)
+
+このアニメーションは、**Confidence（自信）** と **Entropy（探索性）** の位相空間上での振る舞いを可視化したものです。

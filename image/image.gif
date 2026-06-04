@@ -1,0 +1,88 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation, PillowWriter
+
+# =========================
+# シミュレーション設定
+# =========================
+T = 600
+
+confidence = 0.5
+entropy = 0.5
+imprint = 0.5
+
+c_history = []
+e_history = []
+
+# =========================
+# ダイナミクス
+# =========================
+def step(conf, ent, imp):
+    success_signal = np.tanh(imp - ent)
+    noise = np.random.normal(0, 0.02)
+
+    # Confidence更新
+    conf = conf + 0.05 * success_signal - 0.03 * ent + noise
+    conf = np.clip(conf, 0, 1)
+
+    # Entropy更新（揺らぎ + 制御）
+    anomaly = (conf > 0.7) * np.random.rand() * 0.1
+    ent = ent + 0.04 * (1 - conf) + anomaly - 0.02 * ent
+    ent = np.clip(ent, 0, 1)
+
+    # Imprint更新
+    imp = imp + 0.03 * conf - 0.02 * ent
+    imp = np.clip(imp, 0, 1)
+
+    return conf, ent, imp
+
+
+# =========================
+# 実行
+# =========================
+conf, ent, imp = confidence, entropy, imprint
+
+for _ in range(T):
+    c_history.append(conf)
+    e_history.append(ent)
+    conf, ent, imp = step(conf, ent, imp)
+
+# =========================
+# アニメーション作成
+# =========================
+fig, ax = plt.subplots(figsize=(6, 6))
+ax.set_xlim(0, 1)
+ax.set_ylim(0, 1)
+ax.set_xlabel("Confidence")
+ax.set_ylabel("Entropy")
+ax.set_title("Cognitive Phase Space (Oscillation Dynamics)")
+
+line, = ax.plot([], [], lw=2)
+point, = ax.plot([], [], 'ro', markersize=4)
+
+def update(frame):
+    line.set_data(c_history[:frame], e_history[:frame])
+    point.set_data(c_history[frame], e_history[frame])
+    return line, point
+
+ani = FuncAnimation(
+    fig,
+    update,
+    frames=len(c_history),
+    interval=15,
+    blit=True
+)
+
+# =========================
+# GIF出力（重要）
+# =========================
+writer = PillowWriter(fps=30)
+
+ani.save(
+    "cognitive_phase_space.gif",
+    writer=writer
+)
+
+plt.close()
+
+print("GIF saved: cognitive_phase_space.gif")

@@ -16,8 +16,9 @@ Void → Phase Error → Imprint → Meaning → Gate → Action
 No explicit reward model.
 No external optimizer.
 Behavior emerges from internal state dynamics.
+
 3. 発見①：固定化現象（STANDARD Gate）
-Finding 1: Confidence-driven collapse
+4. Finding 1: Confidence-driven collapse
 
 When Gate Confidence increases monotonically:
 

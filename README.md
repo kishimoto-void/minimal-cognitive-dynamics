@@ -94,6 +94,11 @@ Future work:
 - Dynamic confidence attractor model
 - Hierarchical Gate phase coupling
 - Multi-agent interaction system
+- VoidCore is intended for research and educational purposes only.
+
+Commercial use is permitted but prior contact with the author is strongly encouraged.
+
+Use in weapon systems, surveillance systems, or systems designed for coercion or psychological manipulation is strictly prohibited.
 
   ## Cognitive Phase Space Animation
 

@@ -94,3 +94,5 @@ Future work:
 - Dynamic confidence attractor model
 - Hierarchical Gate phase coupling
 - Multi-agent interaction system
+
+- python simulate_cognition.py
